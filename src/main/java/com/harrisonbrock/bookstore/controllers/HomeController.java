@@ -1,12 +1,14 @@
 package com.harrisonbrock.bookstore.controllers;
 
+import com.harrisonbrock.bookstore.domain.Book;
 import com.harrisonbrock.bookstore.repositories.AuthorRepository;
 import com.harrisonbrock.bookstore.repositories.BookRepository;
 import com.harrisonbrock.bookstore.repositories.SectionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class HomeController {
@@ -34,5 +36,16 @@ public class HomeController {
     @GetMapping("/sections")
     public ResponseEntity<?> getAllSection() {
         return new ResponseEntity<>(sectionRepository.findAll(), HttpStatus.OK);
+    }
+
+    @PutMapping("/books/{id}")
+    public ResponseEntity<?> updateBook(@PathVariable long id, @RequestBody Book updateBook) {
+        Optional<Book> book = bookRepository.findById(id);
+
+        if (book.isPresent()) {
+            updateBook.setBookId(id);
+            bookRepository.save(updateBook);
+        }
+        return new ResponseEntity<>(updateBook, HttpStatus.OK);
     }
 }
