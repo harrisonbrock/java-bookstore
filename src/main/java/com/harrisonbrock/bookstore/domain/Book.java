@@ -1,13 +1,13 @@
 package com.harrisonbrock.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,14 +16,20 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bookid")
     private long bookId;
 
     @NotBlank
-    private String bookTitle;
+    private String title;
 
     @NotBlank
     private String isbn;
 
     private int copy;
+
+    private long sectionid;
+    @ManyToMany
+    @JsonIgnoreProperties("books")
+    private Set<Author> authors = new HashSet<>();
 
 }
