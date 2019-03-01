@@ -1,5 +1,6 @@
 package com.harrisonbrock.bookstore.controllers;
 
+import com.harrisonbrock.bookstore.domain.Author;
 import com.harrisonbrock.bookstore.domain.Book;
 import com.harrisonbrock.bookstore.repositories.AuthorRepository;
 import com.harrisonbrock.bookstore.repositories.BookRepository;
@@ -48,4 +49,15 @@ public class HomeController {
         }
         return new ResponseEntity<>(updateBook, HttpStatus.OK);
     }
+
+//    @PostMapping("books/authors/{id}")
+//    public ResponseEntity<?> addBookToAuthor(@RequestBody Book book, @PathVariable long id) {
+//        Author author = authorRepository.findById(id).get();
+//
+//        author.getBooks().add(book);
+//        book.getAuthors().add(author);
+//        authorRepository.save(author);
+//        bookRepository.save(book);
+//        return new ResponseEntity<>(book, HttpStatus.OK);
+//    }
 }

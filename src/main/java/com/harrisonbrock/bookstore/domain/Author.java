@@ -27,7 +27,7 @@ public class Author {
     @Column(name = "firstname")
     private String firstName;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "wrote",
             joinColumns = {@JoinColumn(name = "authorid")},
